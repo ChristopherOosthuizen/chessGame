@@ -1,6 +1,7 @@
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
 import java.util.*;
@@ -11,7 +12,8 @@ public class Board {
 	private int turn;
 	boolean isSquareSelected;
 	private ArrayList<ArrayList<Square>> grid;
-	public Board() {
+	public Board() throws NoSuchMethodException, SecurityException {
+		//initialize varibles
 		grid = new ArrayList<ArrayList<Square>>();
 		turn =1;
 		isSquareSelected = false;
@@ -32,8 +34,14 @@ public class Board {
 					selectedSqaure.movePeice(grid,((Square)e.getSource()));
 					isSquareSelected =false;
 					
+					turn++;
+					try {
+						john.run(turn);
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}	
 					
-					john.random();			
 				}
 				else if(isSquareSelected&&selectedSqaure == e.getSource()) {
 					isSquareSelected =false;
@@ -80,7 +88,11 @@ public class Board {
 		grid.get(7).get(6).addPiece(new Knight(-1));
 		grid.get(0).get(4).addPiece(new King(1));
 		grid.get(7).get(4).addPiece(new King(-1));
-		john = new John(grid);
+		john = new John(grid,"player");
+		
+	}
+	
+	public void run() {
 		frame.setSize(400, 400);
 		frame.setVisible(true);
 	}
