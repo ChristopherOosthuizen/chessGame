@@ -15,12 +15,12 @@ public class Square extends JButton{
 		point = new Point(x,y);
 		peicePresent = true;
 		this.peice =  peice;
-		this.setText(peice.getName()+peice.getTeam());
+		this.setText(peice.getName()+(peice.getTeam()==Piece.WHITE_TEAM?" White":" black"));
 	}
 	public void addPiece(Piece peice) {
 		peicePresent = true;
 		this.peice = peice;
-		this.setText(peice.getName()+peice.getTeam());
+		this.setText(peice.getName()+(peice.getTeam()==Piece.WHITE_TEAM?" White":" black"));
 	}
 	public Piece getPeice() {
 		return peice;
@@ -46,7 +46,7 @@ public class Square extends JButton{
 	public void movePeice(ArrayList<ArrayList<Square>> grid,Square dst) {
 		if(dst.containsPeice() && dst.getPeice().getClass() == King.class) {
 			grid.forEach(s->s.forEach(r->r.removeActionListener(r.getActionListeners()[0])));
-			System.out.println(this.getPeice().getTeam() ==-1?"white wins":"Black wins");
+			System.out.println(this.getPeice().getTeam() ==Piece.WHITE_TEAM?"white wins":"Black wins");
 			
 		}
 		dst.addPiece(this.getPeice());
