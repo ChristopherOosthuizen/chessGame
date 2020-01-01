@@ -37,13 +37,14 @@ public class Board extends ArrayList<ArrayList<Square>>{
 				else if((SquareisSelected  &&selectedSqaure.getPeice().canMove(board,selectedSqaure,((Square)e.getSource())))) {
 					selectedSqaure.movePeice(board,((Square)e.getSource()));
 					SquareisSelected =false;
-					
 					turn++;
+					
 					try {
-						john.run(turn);
+						turn =john.run(turn);
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 						e1.printStackTrace();
 					}	
+					System.out.println(turn);
 					
 				}
 				else if(SquareisSelected&&selectedSqaure == e.getSource()) {

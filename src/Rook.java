@@ -25,7 +25,7 @@ public class Rook extends Piece{
 	@Override
 	public int getValue() {
 		// TODO Auto-generated method stub
-		return 5;
+		return 30;
 	}
 
 }

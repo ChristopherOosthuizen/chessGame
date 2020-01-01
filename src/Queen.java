@@ -29,7 +29,7 @@ public class Queen extends Piece{
 	@Override
 	public int getValue() {
 		// TODO Auto-generated method stub
-		return 9;
+		return 20;
 	}
 
 }

@@ -28,7 +28,7 @@ public class Knight extends Piece{
 	@Override
 	public int getValue() {
 		// TODO Auto-generated method stub
-		return 8;
+		return 40;
 	}
 
 }

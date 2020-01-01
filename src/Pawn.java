@@ -19,7 +19,7 @@ public class Pawn extends Piece{
 	@Override
 	public int getValue() {
 		// TODO Auto-generated method stub
-		return 1;
+		return 100;
 	}
 	
 
