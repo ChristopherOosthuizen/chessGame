@@ -1,8 +1,3 @@
-/App.class
-/Bishop.class
-/Board$1.class
-/Board.class
-/John.class
 /King.class
 /Knight.class
 /Pawn.class
@@ -10,3 +5,5 @@
 /Queen.class
 /Rook.class
 /Square.class
+/Board$1.class
+/Board$MoveListener.class

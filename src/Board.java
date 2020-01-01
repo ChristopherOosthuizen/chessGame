@@ -1,38 +1,43 @@
 import java.awt.GridLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JFrame;
 import java.util.*;
-public class Board {
-	JFrame frame;
-	Square selectedSqaure;
-	John john;
+public class Board extends ArrayList<ArrayList<Square>>{
+		
+	public final int WHITE_TEAM = -1;
+	public final int BLACK_TEAM = 1;
+	public static final String OPPONENT_TYPE_RANDOM="random";
+	public static final String OPPONENT_TYPE_PLAYER= "player";
+	
+	
+	
+	private JFrame frame;
+	private Square selectedSqaure;
+	private John john;
 	private int turn;
-	boolean isSquareSelected;
-	private ArrayList<ArrayList<Square>> grid;
-	public Board() throws NoSuchMethodException, SecurityException {
-		//initialize varibles
-		grid = new ArrayList<ArrayList<Square>>();
-		turn =1;
-		isSquareSelected = false;
-		frame = new JFrame();
-		frame.setLayout(new GridLayout(0,8));
-		ActionListener move = new ActionListener() {
+	private boolean SquareisSelected;
+	private class MoveListener implements ActionListener{
+		private Board board;
+		public MoveListener(Board board){
+			this.board = board;
+		}
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!isSquareSelected&& ((Square)e.getSource()).containsPeice()&&((turn%2 == 0 &&((Square)e.getSource()).getPeice().getTeam() ==1) ||(turn%2 == 1 &&((Square)e.getSource()).getPeice().getTeam() ==-1))){
-					isSquareSelected =true;
+				if(!SquareisSelected&& ((Square)e.getSource()).containsPeice()&&((turn%2 == 0 &&((Square)e.getSource()).getPeice().getTeam() ==BLACK_TEAM) ||(turn%2 == 1 &&((Square)e.getSource()).getPeice().getTeam() ==WHITE_TEAM))){
+					SquareisSelected =true;
 					
 
 					selectedSqaure = ((Square)e.getSource());
 					selectedSqaure.setText(selectedSqaure.getText()+"sec");
 				}
-				else if((isSquareSelected  &&selectedSqaure.getPeice().canMove(grid,selectedSqaure,((Square)e.getSource())))) {
-					selectedSqaure.movePeice(grid,((Square)e.getSource()));
-					isSquareSelected =false;
+				else if((SquareisSelected  &&selectedSqaure.getPeice().canMove(board,selectedSqaure,((Square)e.getSource())))) {
+					selectedSqaure.movePeice(board,((Square)e.getSource()));
+					SquareisSelected =false;
 					
 					turn++;
 					try {
@@ -43,10 +48,10 @@ public class Board {
 					}	
 					
 				}
-				else if(isSquareSelected&&selectedSqaure == e.getSource()) {
-					isSquareSelected =false;
+				else if(SquareisSelected&&selectedSqaure == e.getSource()) {
+					SquareisSelected =false;
 					selectedSqaure.setText(selectedSqaure.getText().replace("sec", ""));
-				}else if(isSquareSelected&&((Square)e.getSource()).containsPeice() &&selectedSqaure.getPeice().getTeam() == ((Square)e.getSource()).getPeice().getTeam()) {
+				}else if(SquareisSelected&&((Square)e.getSource()).containsPeice() &&selectedSqaure.getPeice().getTeam() == ((Square)e.getSource()).getPeice().getTeam()) {
 					
 					selectedSqaure.setText(selectedSqaure.getText().replace("sec", ""));
 				
@@ -57,44 +62,60 @@ public class Board {
 				
 			}
 			
-		};
-		
-		for(int i=0;i<8;i++) {
-			grid.add(new ArrayList());
-			for(int ii=0; ii< 8;ii++) {
-			Square sqr = new Square(i,ii);
-			sqr.addActionListener(move);
-			grid.get(i).add(sqr);
-			frame.add(sqr);
 		}
-	}
-		for(int i=0; i<8;i++) {
-			grid.get(1).get(i).addPiece(new Pawn(1));
-			grid.get(6).get(i).addPiece(new Pawn(-1));
-		}
-		grid.get(0).get(3).addPiece(new Queen(1));
-		grid.get(7).get(3).addPiece(new Queen(-1));
-		grid.get(0).get(0).addPiece(new Rook(1));
-		grid.get(0).get(7).addPiece(new Rook(1));
-		grid.get(7).get(7).addPiece(new Rook(-1));
-		grid.get(7).get(0).addPiece(new Rook(-1));
-		grid.get(0).get(2).addPiece(new Bishop(1));
-		grid.get(0).get(5).addPiece(new Bishop(1));
-		grid.get(7).get(2).addPiece(new Bishop(-1));
-		grid.get(7).get(5).addPiece(new Bishop(-1));
-		grid.get(0).get(1).addPiece(new Knight(1));
-		grid.get(0).get(6).addPiece(new Knight(1));
-		grid.get(7).get(1).addPiece(new Knight(-1));
-		grid.get(7).get(6).addPiece(new Knight(-1));
-		grid.get(0).get(4).addPiece(new King(1));
-		grid.get(7).get(4).addPiece(new King(-1));
-		john = new John(grid,"player");
+	
+	
+	public Board(String opponiteType) throws NoSuchMethodException, SecurityException {
+		//initialize varibles
+		turn =1;
+		SquareisSelected = false;
+		frame = new JFrame();
+		frame.setLayout(new GridLayout(0,8));
+		john = new John(this,opponiteType);
 		
 	}
 	
+	
 	public void run() {
+		MoveListener move = new MoveListener(this);
+		
+		for(int i=0;i<8;i++) {
+			this.add(new ArrayList<Square>());
+			for(int ii=0; ii< 8;ii++) {
+				Square sqr = new Square(i,ii);
+				sqr.addActionListener(move);
+				this.get(i).add(sqr);
+				frame.add(sqr);
+			}
+		}
+		BoardSetUp();
 		frame.setSize(400, 400);
 		frame.setVisible(true);
+	}
+	
+	
+	
+	private void BoardSetUp() {
+		for(int i=0; i<8;i++) {
+			this.get(1).get(i).addPiece(new Pawn(BLACK_TEAM));
+			this.get(6).get(i).addPiece(new Pawn(WHITE_TEAM));
+		}
+		this.get(0).get(3).addPiece(new Queen(BLACK_TEAM));
+		this.get(7).get(3).addPiece(new Queen(WHITE_TEAM));
+		this.get(0).get(0).addPiece(new Rook(BLACK_TEAM));
+		this.get(0).get(7).addPiece(new Rook(BLACK_TEAM));
+		this.get(7).get(7).addPiece(new Rook(WHITE_TEAM));
+		this.get(7).get(0).addPiece(new Rook(WHITE_TEAM));
+		this.get(0).get(2).addPiece(new Bishop(BLACK_TEAM));
+		this.get(0).get(5).addPiece(new Bishop(BLACK_TEAM));
+		this.get(7).get(2).addPiece(new Bishop(WHITE_TEAM));
+		this.get(7).get(5).addPiece(new Bishop(WHITE_TEAM));
+		this.get(0).get(1).addPiece(new Knight(BLACK_TEAM));
+		this.get(0).get(6).addPiece(new Knight(BLACK_TEAM));
+		this.get(7).get(1).addPiece(new Knight(WHITE_TEAM));
+		this.get(7).get(6).addPiece(new Knight(WHITE_TEAM));
+		this.get(0).get(4).addPiece(new King(BLACK_TEAM));
+		this.get(7).get(4).addPiece(new King(WHITE_TEAM));
 	}
 
 }
