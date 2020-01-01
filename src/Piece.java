@@ -1,6 +1,8 @@
 import java.awt.Point;
 import java.util.*;
 public abstract class Piece {
+	public static final int WHITE_TEAM = -1;
+	public static final int BLACK_TEAM = 1;
 	private int team;
 	private int turns;
 	public Piece(int team) {
@@ -23,7 +25,7 @@ public abstract class Piece {
 		turns++;
 	}
 	public ArrayList<Square> movableSpaces(ArrayList<ArrayList<Square>> grid,Square sqr){
-		ArrayList<Square> list = new ArrayList();
+		ArrayList<Square> list = new ArrayList<Square>();
 		for(int i=0; i<8;i++) {
 			for(int ii=0; ii<8;ii++) {
 				if(canMove(grid,sqr, grid.get(i).get(ii))) {

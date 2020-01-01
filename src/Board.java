@@ -1,5 +1,4 @@
 import java.awt.GridLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
@@ -8,8 +7,8 @@ import javax.swing.JFrame;
 import java.util.*;
 public class Board extends ArrayList<ArrayList<Square>>{
 		
-	public final int WHITE_TEAM = -1;
-	public final int BLACK_TEAM = 1;
+	
+	
 	public static final String OPPONENT_TYPE_RANDOM="random";
 	public static final String OPPONENT_TYPE_PLAYER= "player";
 	
@@ -28,7 +27,7 @@ public class Board extends ArrayList<ArrayList<Square>>{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!SquareisSelected&& ((Square)e.getSource()).containsPeice()&&((turn%2 == 0 &&((Square)e.getSource()).getPeice().getTeam() ==BLACK_TEAM) ||(turn%2 == 1 &&((Square)e.getSource()).getPeice().getTeam() ==WHITE_TEAM))){
+				if(!SquareisSelected&& ((Square)e.getSource()).containsPeice()&&((turn%2 == 0 &&((Square)e.getSource()).getPeice().getTeam() ==Piece.BLACK_TEAM) ||(turn%2 == 1 &&((Square)e.getSource()).getPeice().getTeam() ==Piece.WHITE_TEAM))){
 					SquareisSelected =true;
 					
 
@@ -43,7 +42,6 @@ public class Board extends ArrayList<ArrayList<Square>>{
 					try {
 						john.run(turn);
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}	
 					
@@ -97,25 +95,25 @@ public class Board extends ArrayList<ArrayList<Square>>{
 	
 	private void BoardSetUp() {
 		for(int i=0; i<8;i++) {
-			this.get(1).get(i).addPiece(new Pawn(BLACK_TEAM));
-			this.get(6).get(i).addPiece(new Pawn(WHITE_TEAM));
+			this.get(1).get(i).addPiece(new Pawn(Piece.BLACK_TEAM));
+			this.get(6).get(i).addPiece(new Pawn(Piece.WHITE_TEAM));
 		}
-		this.get(0).get(3).addPiece(new Queen(BLACK_TEAM));
-		this.get(7).get(3).addPiece(new Queen(WHITE_TEAM));
-		this.get(0).get(0).addPiece(new Rook(BLACK_TEAM));
-		this.get(0).get(7).addPiece(new Rook(BLACK_TEAM));
-		this.get(7).get(7).addPiece(new Rook(WHITE_TEAM));
-		this.get(7).get(0).addPiece(new Rook(WHITE_TEAM));
-		this.get(0).get(2).addPiece(new Bishop(BLACK_TEAM));
-		this.get(0).get(5).addPiece(new Bishop(BLACK_TEAM));
-		this.get(7).get(2).addPiece(new Bishop(WHITE_TEAM));
-		this.get(7).get(5).addPiece(new Bishop(WHITE_TEAM));
-		this.get(0).get(1).addPiece(new Knight(BLACK_TEAM));
-		this.get(0).get(6).addPiece(new Knight(BLACK_TEAM));
-		this.get(7).get(1).addPiece(new Knight(WHITE_TEAM));
-		this.get(7).get(6).addPiece(new Knight(WHITE_TEAM));
-		this.get(0).get(4).addPiece(new King(BLACK_TEAM));
-		this.get(7).get(4).addPiece(new King(WHITE_TEAM));
+		this.get(0).get(3).addPiece(new Queen(Piece.BLACK_TEAM));
+		this.get(7).get(3).addPiece(new Queen(Piece.WHITE_TEAM));
+		this.get(0).get(0).addPiece(new Rook(Piece.BLACK_TEAM));
+		this.get(0).get(7).addPiece(new Rook(Piece.BLACK_TEAM));
+		this.get(7).get(7).addPiece(new Rook(Piece.WHITE_TEAM));
+		this.get(7).get(0).addPiece(new Rook(Piece.WHITE_TEAM));
+		this.get(0).get(2).addPiece(new Bishop(Piece.BLACK_TEAM));
+		this.get(0).get(5).addPiece(new Bishop(Piece.BLACK_TEAM));
+		this.get(7).get(2).addPiece(new Bishop(Piece.WHITE_TEAM));
+		this.get(7).get(5).addPiece(new Bishop(Piece.WHITE_TEAM));
+		this.get(0).get(1).addPiece(new Knight(Piece.BLACK_TEAM));
+		this.get(0).get(6).addPiece(new Knight(Piece.BLACK_TEAM));
+		this.get(7).get(1).addPiece(new Knight(Piece.WHITE_TEAM));
+		this.get(7).get(6).addPiece(new Knight(Piece.WHITE_TEAM));
+		this.get(0).get(4).addPiece(new King(Piece.BLACK_TEAM));
+		this.get(7).get(4).addPiece(new King(Piece.WHITE_TEAM));
 	}
 
 }
