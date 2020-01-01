@@ -44,7 +44,7 @@ public class Board extends ArrayList<ArrayList<Square>>{
 					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 						e1.printStackTrace();
 					}	
-					System.out.println(turn);
+					
 					
 				}
 				else if(SquareisSelected&&selectedSqaure == e.getSource()) {
@@ -70,7 +70,9 @@ public class Board extends ArrayList<ArrayList<Square>>{
 		SquareisSelected = false;
 		frame = new JFrame();
 		frame.setLayout(new GridLayout(0,8));
+		frame.setDefaultCloseOperation(3);
 		john = new John(this,opponiteType);
+		
 		
 	}
 	

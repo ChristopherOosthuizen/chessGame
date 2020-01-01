@@ -34,7 +34,7 @@ public class Pawn extends Piece{
 				if(two.getXP()-one.getXP()== getTeam() )
 					return true;
 		}
-		if(two.getXP()-one.getXP()== getTeam()&& (two.getYP()-1 == one.getYP() || two.getYP()+1 == one.getYP())&& two.containsPeice())
+		if(two.getXP()-one.getXP()== getTeam()&& (two.getYP()-1 == one.getYP() || two.getYP()+1 == one.getYP())&& two.containsPeice()&& two.getPeice().getTeam() !=one.getPeice().getTeam() )
 			return true;
 		return false;
 	}

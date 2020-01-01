@@ -55,6 +55,11 @@ public class Square extends JButton{
 		
 		this.removePeice();
 	}
+	public int getValue() {
+		if(this.containsPeice())
+			return getPeice().getValue()*getPeice().getTeam();
+		return Integer.MAX_VALUE-100;
+	}
 	
 	
 }

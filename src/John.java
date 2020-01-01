@@ -42,30 +42,43 @@ public class John {
 		return turn;
 	}
 	public int decide(int turn) {
+		ArrayList<Square> squares = peciesList();
+		int min_value = Integer.MAX_VALUE;
+		Square min_Square = squares.get(0);
+		for(Square sqr:squares) {
+			if(lowestMove(sqr) !=null&&lowestMove(sqr).getValue() < min_value) {
+				
+				min_value = lowestMove(sqr).getValue();
+				min_Square = sqr;
+			}
+			
+			
+		}
 		
-		return turn++;
+		min_Square.movePeice(board, lowestMove(min_Square));
+		return ++turn;
 		
 	}
 	public int run(int turn) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		return (int) type.invoke(this, turn);
 	}
-	private int[][] generateValueTable(int o){
-		int[][] result = new int[8][8];
-		for(int i=0; i< 8; i++) {
-			for(int ii=0; ii<8;ii++) {
-				if(board.get(i).get(ii).containsPeice())
-					result[i][ii] =board.get(i).get(ii).getPeice().getValue()*board.get(i).get(ii).getPeice().getTeam();
-				else
-					result[i][ii] =o;
+	
+	private Square lowestMove(Square square) {
+		ArrayList<Square> squares = square.getPeice().movableSpaces(board, square);
+		if(squares.size() >0) {
+		int min_value = Integer.MAX_VALUE;
+		Square min_Square = squares.get(0);
+		for(Square sqr:squares) {
+			if(sqr.getValue() < min_value) {
+				min_value = sqr.getValue();
+				min_Square = sqr;
 			}
+			
 		}
-		return result;
-	}
-	private int[][] preformLamda(int[][] table,IntUnaryOperator bi){
-		for(int i=0; i< 8; i++) {
-			table[i] = Arrays.stream(table[i]).map(bi).toArray();
+		return min_Square;
 		}
-		return table;
+		return null;
 	}
+	
 
 }
