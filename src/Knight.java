@@ -10,7 +10,7 @@ public class Knight extends Piece{
 	
 	@Override
 	public boolean canMove( Square one, Square two) {
-		if(!two.containsPeice()||(two.containsPeice()&&two.getPeice().getTeam() != one.getPeice().getTeam())) {
+		if(!two.containsPeice()||one.isSameTeam(two)) {
 		if(Math.abs(one.getXP()-two.getXP()) == 2&& Math.abs(one.getYP()-two.getYP()) ==1)
 			return true;
 		if(Math.abs(one.getYP()-two.getYP()) == 2&& Math.abs(one.getXP()-two.getXP()) ==1)

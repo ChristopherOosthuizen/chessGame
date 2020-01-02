@@ -6,8 +6,6 @@ import java.util.*;
 
 
 public class John {
-	private final int PEICEIS=0;
-	private final int SPACES =1;
 	private Board board;
 	private Method type;
 	public John(Board board,String type) throws NoSuchMethodException, SecurityException {

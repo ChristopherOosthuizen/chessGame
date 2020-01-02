@@ -9,7 +9,7 @@ public class Rook extends Piece{
 
 	@Override
 	public boolean canMove( Square one, Square two) {
-		if(!two.containsPeice()||(two.containsPeice()&&two.getPeice().getTeam() != one.getPeice().getTeam())) {
+		if(!two.containsPeice()||one.isSameTeam(two)) {
 		if(((one.getXP() == two.getXP() && one.getYP() != two.getYP())||(one.getYP() == two.getYP() && one.getXP() != two.getXP())) && this.pathClear( one, two) )
 			return true;
 		}

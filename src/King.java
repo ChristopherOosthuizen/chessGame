@@ -9,7 +9,7 @@ public class King extends Piece{
 
 	@Override
 	public boolean canMove( Square one, Square two) {
-		if(!two.containsPeice()||(two.containsPeice()&&two.getPeice().getTeam() != one.getPeice().getTeam())) {
+		if(!two.containsPeice()||one.isSameTeam(two)) {
 			if(Math.abs(one.getXP()-two.getXP()) ==1 && one.getYP()==two.getYP())
 				return true;
 			if(Math.abs(one.getYP()-two.getYP()) ==1 && one.getXP()==two.getXP())

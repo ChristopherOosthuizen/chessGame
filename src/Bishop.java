@@ -9,7 +9,7 @@ public class Bishop extends Piece{
 
 	@Override
 	public boolean canMove( Square one, Square two) {
-		if(!two.containsPeice()||(two.containsPeice()&&two.getPeice().getTeam() != one.getPeice().getTeam())) {
+		if(!two.containsPeice()||one.isSameTeam(two)) {
 			if(Math.abs(one.getXP() - two.getXP()) == Math.abs(two.getYP()-one.getYP())&&this.pathClear( one, two)){
 				return true;
 			}

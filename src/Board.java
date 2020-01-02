@@ -11,7 +11,7 @@ public class Board extends ArrayList<ArrayList<Square>>{
 	
 	public static final String OPPONENT_TYPE_RANDOM="random";
 	public static final String OPPONENT_TYPE_PLAYER= "player";
-	
+	public static final String OPPONENT_TYPE_DECITIONS= "decide";
 	
 	
 	private JFrame frame;
