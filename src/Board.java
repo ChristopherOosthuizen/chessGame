@@ -34,8 +34,8 @@ public class Board extends ArrayList<ArrayList<Square>>{
 					selectedSqaure = ((Square)e.getSource());
 					selectedSqaure.setText(selectedSqaure.getText()+"sec");
 				}
-				else if((SquareisSelected  &&selectedSqaure.getPeice().canMove(board,selectedSqaure,((Square)e.getSource())))) {
-					selectedSqaure.movePeice(board,((Square)e.getSource()));
+				else if((SquareisSelected  &&selectedSqaure.getPeice().canMove(selectedSqaure,((Square)e.getSource())))) {
+					selectedSqaure.movePeice(((Square)e.getSource()));
 					SquareisSelected =false;
 					turn++;
 					
@@ -83,7 +83,7 @@ public class Board extends ArrayList<ArrayList<Square>>{
 		for(int i=0;i<8;i++) {
 			this.add(new ArrayList<Square>());
 			for(int ii=0; ii< 8;ii++) {
-				Square sqr = new Square(i,ii);
+				Square sqr = new Square(this,i,ii);
 				sqr.addActionListener(move);
 				this.get(i).add(sqr);
 				frame.add(sqr);
@@ -98,25 +98,25 @@ public class Board extends ArrayList<ArrayList<Square>>{
 	
 	private void BoardSetUp() {
 		for(int i=0; i<8;i++) {
-			this.get(1).get(i).addPiece(new Pawn(Piece.BLACK_TEAM));
-			this.get(6).get(i).addPiece(new Pawn(Piece.WHITE_TEAM));
+			this.get(1).get(i).addPiece(new Pawn(Piece.BLACK_TEAM,this));
+			this.get(6).get(i).addPiece(new Pawn(Piece.WHITE_TEAM,this));
 		}
-		this.get(0).get(3).addPiece(new Queen(Piece.BLACK_TEAM));
-		this.get(7).get(3).addPiece(new Queen(Piece.WHITE_TEAM));
-		this.get(0).get(0).addPiece(new Rook(Piece.BLACK_TEAM));
-		this.get(0).get(7).addPiece(new Rook(Piece.BLACK_TEAM));
-		this.get(7).get(7).addPiece(new Rook(Piece.WHITE_TEAM));
-		this.get(7).get(0).addPiece(new Rook(Piece.WHITE_TEAM));
-		this.get(0).get(2).addPiece(new Bishop(Piece.BLACK_TEAM));
-		this.get(0).get(5).addPiece(new Bishop(Piece.BLACK_TEAM));
-		this.get(7).get(2).addPiece(new Bishop(Piece.WHITE_TEAM));
-		this.get(7).get(5).addPiece(new Bishop(Piece.WHITE_TEAM));
-		this.get(0).get(1).addPiece(new Knight(Piece.BLACK_TEAM));
-		this.get(0).get(6).addPiece(new Knight(Piece.BLACK_TEAM));
-		this.get(7).get(1).addPiece(new Knight(Piece.WHITE_TEAM));
-		this.get(7).get(6).addPiece(new Knight(Piece.WHITE_TEAM));
-		this.get(0).get(4).addPiece(new King(Piece.BLACK_TEAM));
-		this.get(7).get(4).addPiece(new King(Piece.WHITE_TEAM));
+		this.get(0).get(3).addPiece(new Queen(Piece.BLACK_TEAM,this));
+		this.get(7).get(3).addPiece(new Queen(Piece.WHITE_TEAM,this));
+		this.get(0).get(0).addPiece(new Rook(Piece.BLACK_TEAM,this));
+		this.get(0).get(7).addPiece(new Rook(Piece.BLACK_TEAM,this));
+		this.get(7).get(7).addPiece(new Rook(Piece.WHITE_TEAM,this));
+		this.get(7).get(0).addPiece(new Rook(Piece.WHITE_TEAM,this));
+		this.get(0).get(2).addPiece(new Bishop(Piece.BLACK_TEAM,this));
+		this.get(0).get(5).addPiece(new Bishop(Piece.BLACK_TEAM,this));
+		this.get(7).get(2).addPiece(new Bishop(Piece.WHITE_TEAM,this));
+		this.get(7).get(5).addPiece(new Bishop(Piece.WHITE_TEAM,this));
+		this.get(0).get(1).addPiece(new Knight(Piece.BLACK_TEAM,this));
+		this.get(0).get(6).addPiece(new Knight(Piece.BLACK_TEAM,this));
+		this.get(7).get(1).addPiece(new Knight(Piece.WHITE_TEAM,this));
+		this.get(7).get(6).addPiece(new Knight(Piece.WHITE_TEAM,this));
+		this.get(0).get(4).addPiece(new King(Piece.BLACK_TEAM,this));
+		this.get(7).get(4).addPiece(new King(Piece.WHITE_TEAM,this));
 	}
 
 }

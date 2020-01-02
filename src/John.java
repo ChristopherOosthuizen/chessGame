@@ -2,9 +2,7 @@
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.function.IntUnaryOperator;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+
 
 
 public class John {
@@ -27,15 +25,15 @@ public class John {
 		int pec = (int)(Math.random() *list.size());
 		
 		Square spot = list.get(pec);
-		ArrayList<Square> dsts = spot.getPeice().movableSpaces(board, spot);
+		ArrayList<Square> dsts = spot.getPeice().movableSpaces( spot);
 		while(dsts.size() ==0) {
 			pec = (int)(Math.random() *list.size());
 			
 			spot = list.get(pec);
-			dsts = spot.getPeice().movableSpaces(board, spot);
+			dsts = spot.getPeice().movableSpaces( spot);
 		}
 		Square dst = dsts.get((int)(Math.random()*dsts.size()));
-		spot.movePeice(board,dst);
+		spot.movePeice(dst);
 		return ++turn;
 	}
 	public int player(int turn) {
@@ -46,7 +44,7 @@ public class John {
 		int min_value = Integer.MAX_VALUE;
 		Square min_Square = squares.get(0);
 		for(Square sqr:squares) {
-			if(lowestMove(sqr) !=null&&lowestMove(sqr).getValue() < min_value) {
+			if(lowestMove(sqr) !=null&&lowestMove(sqr).getValue()*sqr.getPeice().getTurns() < min_value) {
 				
 				min_value = lowestMove(sqr).getValue();
 				min_Square = sqr;
@@ -55,7 +53,7 @@ public class John {
 			
 		}
 		
-		min_Square.movePeice(board, lowestMove(min_Square));
+		min_Square.movePeice( lowestMove(min_Square));
 		return ++turn;
 		
 	}
@@ -64,7 +62,7 @@ public class John {
 	}
 	
 	private Square lowestMove(Square square) {
-		ArrayList<Square> squares = square.getPeice().movableSpaces(board, square);
+		ArrayList<Square> squares = square.getPeice().movableSpaces( square);
 		if(squares.size() >0) {
 		int min_value = Integer.MAX_VALUE;
 		Square min_Square = squares.get(0);

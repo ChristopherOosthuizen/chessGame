@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Pawn extends Piece{
 	
-	public Pawn(int team) {
-		super(team);
+	public Pawn(int team,Board board) {
+		super(team,board);
 		
 	}
 
@@ -24,17 +24,17 @@ public class Pawn extends Piece{
 	
 
 	@Override
-	public boolean canMove(ArrayList<ArrayList<Square>> grid,Square one ,Square two) {
+	public boolean canMove(Square one ,Square two) {
 		
 		if(two.getYP() == one.getYP()&& (!two.containsPeice())) {
 				
-				if(getTurns() ==1 &&two.getXP()-one.getXP()== getTeam()*2&& this.pathClear(grid, one, two) ) {
+				if(getTurns() ==1 &&two.getXP()-one.getXP()== getTeam()*2&& this.pathClear( one, two) ) {
 					return true;
 				}
 				if(two.getXP()-one.getXP()== getTeam() )
 					return true;
 		}
-		if(two.getXP()-one.getXP()== getTeam()&& (two.getYP()-1 == one.getYP() || two.getYP()+1 == one.getYP())&& two.containsPeice()&& two.getPeice().getTeam() !=one.getPeice().getTeam() )
+		if(two.getXP()-one.getXP()== getTeam()&& (two.getYP()-1 == one.getYP() || two.getYP()+1 == one.getYP())&& one.isSameTeam(two) )
 			return true;
 		return false;
 	}

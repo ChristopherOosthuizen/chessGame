@@ -6,11 +6,14 @@ public class Square extends JButton{
 	private boolean peicePresent;
 	private Piece peice;
 	private Point point;
-	public Square(int x,int y) {
+	private Board board;
+	public Square(Board board,int x,int y) {
 		super();
 		point = new Point(x,y);
 		peicePresent =false;
+		this.board = board;
 	}
+	
 	public Square(int x,int y,Piece peice) {
 		point = new Point(x,y);
 		peicePresent = true;
@@ -43,9 +46,12 @@ public class Square extends JButton{
 	public int getYP() {
 		return point.y;
 	}
-	public void movePeice(ArrayList<ArrayList<Square>> grid,Square dst) {
+	public boolean isSameTeam(Square sqr) {
+		return sqr.containsPeice()&& sqr.getPeice().getTeam() !=this.getPeice().getTeam();
+	}
+	public void movePeice(Square dst) {
 		if(dst.containsPeice() && dst.getPeice().getClass() == King.class) {
-			grid.forEach(s->s.forEach(r->r.removeActionListener(r.getActionListeners()[0])));
+			board.forEach(s->s.forEach(r->r.removeActionListener(r.getActionListeners()[0])));
 			System.out.println(this.getPeice().getTeam() ==Piece.WHITE_TEAM?"white wins":"Black wins");
 			
 		}
@@ -58,7 +64,7 @@ public class Square extends JButton{
 	public int getValue() {
 		if(this.containsPeice())
 			return getPeice().getValue()*getPeice().getTeam();
-		return Integer.MAX_VALUE-100;
+		return 10;
 	}
 	
 	
